@@ -20,9 +20,6 @@ Before we begin, make sure you have the following:
 
 Celo oracles are specialized components that enable smart contracts to interact with external data. They act as bridges between the blockchain and off-chain data sources, fetching and verifying data to make it available within the Celo ecosystem.
 
-## Celo Oracles Overview
-
-Oracles are essential for decentralized applications that require real-time data, such as price feeds, weather information, or other external API data. They enable smart contracts to access and utilize this off-chain data.
 
 ## Why are Oracles Important?
 
