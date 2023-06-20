@@ -1,5 +1,30 @@
 # Implementing Celo Blockchain Oracles for External Data Integration
 
+# Table of Content
+- [Introduction](#introduction)
+- [Prerequisites](#requirements)
+- [Requirements](#requirements)
+- [Overview of Celo Oracles](#overview-of-celo-oracles)
+     - [Understanding Celo’s Oracle System](#understanding-celos-oracle-system)
+     - [Why are Oracles Important?](#why-are-oracles-important)
+     - [Benefits and Challenges of Using Decentralized Oracles](#benefits-and-challenges-of-using-decentralized-oracles)
+     - [Fetching Real-Time Information](#fetching-real-time-information)
+     - [Ensuring Reliability with Oracles](#ensuring-reliability-with-oracles)
+     - [Setting Up Celo’s Oracle Integration](#setting-up-celos-oracle-integration)
+     - [Install Celo’s Oracle Library:](#install-celos-oracle-library)
+     - [Import the Oracle Contract:](#import-the-oracle-contract)
+     - [Initialize the Oracle Contract:](#initialize-the-oracle-contract)
+     - [Retrieve Data from the Oracle:](#retrieve-data-from-the-oracle)
+     - [Deploy and Test:](#deploy-and-test)
+     - [Retrieving External Data in Smart Contracts](d#retrieving-external-data-in-smart-contracts)
+     - [Define the Data Request:](#define-the-data-request)
+     - [Query the Oracle:](#query-the-oracle)
+     - [Fulfill the Data Request:](#fulfill-the-data-request)
+     - [Test and Validate:](#test-and-validate)
+     - [Ensuring Data Reliability and Security](#ensuring-data-reliability-and-security)
+     - [Data Verification:](#data-verification)
+     - [Conclusion](#conclusion)
+
 ## Introduction
 
 In this tutorial, we will explore how to leverage Celo blockchain oracles to integrate external data into smart contracts and DApps. The ability to access off-chain data is crucial for real-world use cases, and decentralized oracles provide a reliable and secure way to fetch and verify this data within the Celo ecosystem.
