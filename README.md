@@ -15,12 +15,15 @@ Before we begin, make sure you have the following:
 3. Blockchain technology and smart contracts
 4. Read this article for basic understanding on [ Celo Oracle](https://docs.celo.org/protocol/oracle)
 
+
 ## Requirements
 Before you get started, you’ll need the following:
 
 1. A working laptop
 2. Internet access
 3. IDE environment of choice(VsCode or Remix recommended)
+4. Node.js and npm installed on your local machine.
+6. Access to the Celo network for deploying and testing smart contracts
 
 # Overview of Celo Oracles
 
