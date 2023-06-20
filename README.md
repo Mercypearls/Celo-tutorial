@@ -14,6 +14,34 @@ Before we begin, make sure you have the following:
 2. Node.js installed on your machine.
 3. Familiarity with Hardhat. If you're new to Hardhat, you can refer to the [Hardhat documentation](https://hardhat.org/getting-started/) for installation and setup instructions.
 
+# Overview of Celo Oracles
+
+## What are Celo Oracles?
+
+Celo oracles are specialized components that enable smart contracts to interact with external data. They act as bridges between the blockchain and off-chain data sources, fetching and verifying data to make it available within the Celo ecosystem.
+
+## Celo Oracles Overview
+
+Oracles are essential for decentralized applications that require real-time data, such as price feeds, weather information, or other external API data. They enable smart contracts to access and utilize this off-chain data.
+
+## Why are Oracles Important?
+
+Oracles play a crucial role in expanding the functionality and use cases of smart contracts. By providing access to external data, oracles enable smart contracts to interact with the real world and make decisions based on real-time information.
+
+For example, in a decentralized finance (DeFi) application, an oracle can provide the current price of an asset. Smart contracts can then use this price to execute trades, calculate interest rates, or trigger other actions.
+
+## Benefits and Challenges of Using Decentralized Oracles
+
+Decentralized oracles offer several benefits compared to centralized alternatives:
+
+- **Increased Security**: Decentralized oracles distribute the data-fetching and verification process across multiple nodes, making it more resistant to single points of failure and manipulation.
+
+- **Transparency**: The operations performed by decentralized oracles are transparent and auditable on the blockchain, providing increased trust in the integrity of the data.
+
+- **Trustless Data Feeds**: Decentralized oracles enable trustless data feeds, reducing the reliance on centralized entities for providing external data.
+
+However, implementing decentralized oracles comes with challenges, such as ensuring data integrity, managing consensus mechanisms, and designing appropriate trust models.
+
 ## Setting up the Project
 
 Let's start by setting up a new Hardhat project.
