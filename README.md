@@ -27,29 +27,59 @@
 
 ## Introduction
 
-In this tutorial, we will explore how to leverage Celo blockchain oracles to integrate external data into smart contracts and DApps. The ability to access off-chain data is crucial for real-world use cases, and decentralized oracles provide a reliable and secure way to fetch and verify this data within the Celo ecosystem.
+Attention Newbie Developers: Supercharge Your dApps with Celo Blockchain Oracles!
 
-we’ll look at how to use Celo’s stable oracle system to easily add data from outside your smart contracts. By following this illustrated tutorial, you’ll give your dApps the ability to gain secure access to real-world data and make sure they’re as reliable as possible.
+Are you ready to take your decentralized applications (dApps) to the next level? In this tutorial, we're diving into the exciting world of Celo blockchain oracles. They hold the key to seamlessly integrating external data into your smart contracts and dApps, making them more powerful and reliable than ever before.
+
+Why is accessing off-chain data crucial? Well, imagine your dApp needing real-world information like market prices, weather updates, or even sports scores. With Celo's decentralized oracles, you can easily fetch and verify this external data within the secure Celo ecosystem. The possibilities are endless!
+
+In this beginner-friendly tutorial, we'll walk you through harnessing the incredible capabilities of Celo's stable oracle system. No need to worry about complex technicalities - we've got you covered with clear illustrations and step-by-step instructions.
+
+By the end of this tutorial, you'll empower your dApps to securely tap into real-world data, ensuring they're as reliable as possible. It's time to unlock a world of possibilities and create dApps that stand out from the crowd.
+
+Don't miss this opportunity to level up your development skills and make a real impact in the blockchain space. Join us on this thrilling journey as we unravel the potential of Celo blockchain oracles!
+
+Get ready to revolutionize your dApps - let's dive in!
 
 ## Prerequisites
 
 Before we begin, make sure you have the following:
 
-1. The Solidity programming language
-2. The basics of the Celo platform
-3. Blockchain technology and smart contracts
-4. Read this article for basic understanding on [ Celo Oracle](https://docs.celo.org/protocol/oracle)
+Calling all Newbie Developers: Equip Yourself for an Exciting Celo Oracle Adventure!
+
+Before we embark on this thrilling journey, let's ensure you have the essentials in your developer toolkit:
+
+1. Solidity Programming Language: Familiarity with Solidity, the language of smart contracts, will be your key to success throughout this tutorial. Don't worry if you're new to it - we'll provide explanations and examples along the way.
+
+2. Basics of the Celo Platform: To make the most of this tutorial, it's beneficial to have a foundational understanding of the Celo platform. But don't fret if you're not there yet - we'll guide you through the fundamentals, ensuring you're ready to soar!
+
+3. Blockchain Technology and Smart Contracts: If you've got some knowledge of blockchain technology and smart contracts, you're already ahead of the game. However, if you're new to these concepts, fear not! We'll provide you with the necessary explanations to grasp the magic behind decentralized applications.
+
+4. Read This Article for Basic Understanding on Celo Oracle: To set the stage for our adventure, we recommend taking a quick detour to read an article that offers a basic understanding of Celo Oracle. Visit [Celo Oracle Basics](https://docs.celo.org/protocol/oracle) and familiarize yourself with this crucial component of the Celo ecosystem.
+
+With these essentials in your arsenal, you're well-prepared to delve into the captivating world of Celo Oracle. We're here to guide you every step of the way, ensuring that you grasp the concepts and gain hands-on experience with ease.
+
+Get ready to unlock the power of Celo Oracle and witness firsthand how it can revolutionize your smart contracts. Let's set off on this knowledge-packed adventure together!
 
 
 ## Requirements
-Before you get started, you’ll need the following:
+Attention Newbie Developers: Get Set for an Exciting Celo Development Journey!
 
-1. A working laptop
-2. Internet access
-3. IDE environment of choice(VsCode or Remix recommended)
-4. Node.js and npm installed on your local machine.
-6. Access to the Celo network for deploying and testing smart contracts
+Before we kickstart this exhilarating experience, let's make sure you have the essentials in place:
 
+1. A Working Laptop: To embark on this development adventure, you'll need a trusty laptop that can handle your coding prowess. It's your gateway to building amazing things with Celo!
+
+2. Internet Access: Seamless internet connectivity is a must-have for exploring the vast Celo ecosystem, accessing resources, and deploying your incredible creations to the Celo network. So, make sure you're connected and ready to go!
+
+3. IDE Environment of Choice: To make coding a breeze, we recommend having an Integrated Development Environment (IDE) like Visual Studio Code (VsCode) or Remix at your disposal. These tools offer powerful features and a friendly coding environment.
+
+4. Node.js and npm: It's essential to have Node.js and npm (Node Package Manager) installed on your local machine. These tools will help you manage dependencies and run scripts effortlessly, making your Celo development experience smooth and hassle-free.
+
+5. Access to the Celo Network: To bring your smart contracts to life, you'll need access to the Celo network. This will allow you to deploy and test your creations, ensuring they function seamlessly in the real world. Get ready to dive into the Celo network and unleash the potential of your applications!
+
+Now that you have everything you need, it's time to embark on an incredible Celo development journey. Let's unlock the power of blockchain and create innovative solutions together!
+
+Prepare your laptop, connect to the internet, set up your favorite IDE, install Node.js and npm, and get ready to explore the Celo network. Exciting times await you on this thrilling coding adventure!
 # Overview of Celo Oracles
 
 ## Understanding Celo’s Oracle System
@@ -103,6 +133,56 @@ contract OracleExample {
 }
 ```
 In this sample code, the OracleExample contract interacts with the Celo Oracle contract to retrieve the current price of a cryptocurrency. The getCurrentPrice function takes a currency parameter and returns the current price obtained from the oracle
+
+if you are more familiar with openzeppelin and would prefer a contract that is in tune with openzeppelin library, Here is a similar contract that adopts openzeppelin's library. Follow this step:
+
+1. Install the OpenZeppelin library by running the following command in your project directory:
+```solidity
+npm install @openzeppelin/contracts
+```
+2. Import the necessary OpenZeppelin contracts in your Solidity file:
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
+import "@openzeppelin/contracts/interfaces/IERC20.sol";
+import "@openzeppelin/contracts/interfaces/AggregatorV3Interface.sol";
+```
+3. Update the OracleExample contract to use the OpenZeppelin library. Replace the Oracle contract with the desired OpenZeppelin oracle-related contract.
+For example, if you want to use the AggregatorV3Interface contract from OpenZeppelin for accessing price data, you can replace the Oracle contract with the following code:
+```solidity
+contract OracleExample {
+    AggregatorV3Interface private oracle;
+
+    constructor(address oracleAddress) {
+        oracle = AggregatorV3Interface(oracleAddress);
+    }
+
+    /**
+     * @dev Retrieves the current price of a cryptocurrency from the OpenZeppelin oracle.
+     * @param currency The symbol or identifier of the cryptocurrency.
+     * @return The current price of the cryptocurrency.
+     */
+    function getCurrentPrice(string memory currency) public view returns (uint256) {
+        (, int256 price, , , ) = oracle.latestRoundData();
+        return uint256(price);
+    }
+}
+```
+This contract, named `OracleExample`, interacts with an oracle contract provided by OpenZeppelin. The oracle contract is specified by the `AggregatorV3Interface` interface, which is used to fetch price data.
+
+The constructor of `OracleExample` takes an `oracleAddress` as an argument, which represents the address of the oracle contract. It initializes the `oracle` variable with an instance of the `AggregatorV3Interface` by casting the `oracleAddress` to the appropriate type.
+
+The `getCurrentPrice` function retrieves the current price of a cryptocurrency from the OpenZeppelin oracle. It takes a `currency` parameter, which is the symbol or identifier of the cryptocurrency for which you want to fetch the price. The function returns the current price of the cryptocurrency as a `uint256` value.
+
+Inside the `getCurrentPrice` function, the `latestRoundData` function is called on the `oracle` contract to fetch the latest price data. The function returns a tuple that includes the latest round data, but in this case, only the `price` value is captured and converted to a `uint256` before being returned.
+
+In summary, this contract acts as a simple wrapper around an OpenZeppelin oracle contract, allowing you to retrieve the current price of a cryptocurrency by calling the `getCurrentPrice` function with the desired currency symbol or identifier.
+
+
 
 ## Ensuring Reliability with Oracles
 
