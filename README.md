@@ -58,7 +58,7 @@ npx hardhat init
 3. Install the required dependencies:
 
 ```
-npm install @celo/hardhat-celo hardhat dotenv
+npm install @celo/contractkit dotenv
 ```
 
 4. Create a new file named .env in the root directory of your project and add the following content:
@@ -76,7 +76,8 @@ Replace <your-mnemonic-phrase> with the mnemonic phrase of your Celo account. Ma
 2. Replace the contents of the file with the following code:
 
 ```
-   require('dotenv').config();
+  require('dotenv').config();
+const { CeloNetwork } = require("@celo-tools/use-contractkit");
 
 module.exports = {
   defaultNetwork: 'hardhat',
@@ -85,10 +86,12 @@ module.exports = {
     alfajores: {
       url: 'https://alfajores-forno.celo-testnet.org',
       accounts: { mnemonic: process.env.MNEMONIC },
+      chainId: CeloNetwork.Alfajores
     },
     mainnet: {
       url: 'https://forno.celo.org',
       accounts: { mnemonic: process.env.MNEMONIC },
+      chainId: CeloNetwork.Mainnet
     },
   },
   solidity: {
@@ -125,38 +128,45 @@ Now, let's create a new Solidity contract that utilizes Celo oracles to fetch an
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import { UsingTellor } from "@chainlink/contracts/src/v0.8/dev/UsingTellor.sol";
+import { UsingTellor } from "@celo/contractkit/contracts/identity/UsingTellor.sol";
 
 contract Oracle is UsingTellor {
     uint256 public data;
+    uint256 public requestId;
 
-    constructor(address _tellorAddress) UsingTellor(_tellorAddress) {}
+    event ExternalDataUpdated(uint256 newValue);
 
-    /**
-     * @dev Fetches external data using the specified request ID.
-     * @param _requestId The request ID of the data to fetch.
-     */
-    function fetchExternalData(uint256 _requestId) external {
-        // Request data from the Tellor oracle with a 24-hour timeout and no tip
-        requestData(_requestId, 86400, 0);
+    constructor(address _tellor) UsingTellor(_tellor) {
+        requestId = 1; // Specify the request ID for the desired data
     }
 
     /**
-     * @dev Callback function called by the Tellor oracle when data is fulfilled.
-     * @param _requestId The request ID of the fulfilled data.
-     * @param _data The fetched data value.
+     * @dev Updates the external data by fetching the value from the Tellor oracle.
+     * This function can be called by anyone.
+     * Emits an `ExternalDataUpdated` event with the new value.
+     * Reverts if the data is not yet ready or if there is an error fetching the data.
      */
-    function fulfill(uint256 _requestId, uint256 _data) external override {
-        // Ensure that only the Tellor contract can call this function
-        require(msg.sender == address(tellor), "Caller is not the Tellor contract");
+    function updateExternalData() public {
+        require(isDataReady(), "Data is not yet ready");
+        (bool success, int256 value, ) = getCurrentValue(requestId);
+        require(success && value > 0, "Error fetching external data");
 
-        // Store the fetched data in the contract
-        data = _data;
+        data = uint256(value);
+        emit ExternalDataUpdated(data);
+    }
+
+    /**
+     * @dev Checks if the data is ready to be fetched from the Tellor oracle.
+     * Returns true if the request timestamp is greater than 0 and less than or equal to the current block timestamp.
+     * Otherwise, returns false.
+     */
+    function isDataReady() public view returns (bool) {
+        uint256 requestTimestamp = getRequestTimestamp(requestId);
+        return requestTimestamp > 0 && requestTimestamp <= block.timestamp;
     }
 }
-
  ```
-In this contract, we define the `data` variable to store the fetched external data. The `fetchExternalData` function is used to trigger the data retrieval process, and the `fulfill` function is a callback function called by the Tellor oracle when the data is fulfilled. It verifies the caller is the Tellor contract and stores the fetched data in the `data` variable.
+In this contract, we define the data variable to store the fetched external data. The updateExternalData function is used to trigger the data retrieval process, and the isDataReady function checks if the data is ready for retrieval.
 
 ## Writing Tests
 Let's write some tests to ensure our contract functions as expected.
@@ -179,15 +189,13 @@ describe('Oracle', function () {
   });
 
   it('should fetch external data', async function () {
-    await oracle.fetchExternalData(1); // Replace 1 with the desired request ID
+    await oracle.updateExternalData();
     const data = await oracle.data();
     expect(data).to.equal(0); // Replace 0 with the expected fetched data value
   });
 });
-
 ```
-
-In this test, we deploy the Oracle contract and verify that the fetchExternalData function correctly initializes the data variable. Adjust the request ID and expected data value according to your use case.
+In this test, we deploy the Oracle contract and verify that the updateExternalData function correctly updates the data variable. Adjust the expected data value according to your use case.
 
 ## Compiling and Running Tests
 
