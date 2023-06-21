@@ -86,15 +86,13 @@ Celo’s oracle system acts as a trusted bridge, seamlessly connecting the block
 
 ## Benefits and Challenges of Using Decentralized Oracles:
 
-Decentralized oracles offer several benefits compared to centralized alternatives:
-
-1. **Increased Security**: They distribute the data-fetching and verification process across multiple nodes, making it more resistant to single points of failure and manipulation.
-
-2. **Transparency**: Operations performed by decentralized oracles are transparent and auditable on the blockchain, providing increased trust in the integrity of the data.
-
-3. **Trustless Data Feeds**: It enables trustless data feeds, reducing the reliance on centralized entities for providing external data.
-
-However, implementing decentralized oracles comes with challenges, such as ensuring data integrity, managing consensus mechanisms and designing appropriate trust models.
+| Benefits   | Challenges |
+| ----------- | ----------- |
+| 1. **Trust and Security**: Decentralized oracles enhance trust and security by providing verifiable and tamper-resistant data from multiple sources.     |     1. **Data Quality**: Ensuring the accuracy and reliability of data from decentralized oracles can be challenging, as it relies on the integrity of the external sources and the oracle network itself.  |
+| 2. **Real-World Data Integration**: Decentralized oracles enable smart contracts to access real-world data, facilitating the development of dApps with real-time information, such as price feeds, weather data, and more.   |  2. **Oracle Selection**: Choosing a reliable and reputable decentralized oracle network can be difficult, as there are multiple options available with varying levels of security and functionality.       |
+| 3. **Versatility**: Decentralized oracles support a wide range of data types, allowing integration with diverse industries, including finance, supply chain, insurance etc. | 3. **Latency**: The time required to fetch data from external sources and propagate it to the blockchain introduces latency, which may affect time-sensitive applications.  |
+| 4. **Decentralization**: By utilizing decentralized oracles, reliance on a single central authority is reduced, resulting in a more resilient and censorship-resistant ecosystem. | 4. **Cost**: Depending on the oracle network and data complexity, using decentralized oracles can incur additional costs, such as transaction fees and oracle subscription fees. |
+| 5. **Interoperability**: Decentralized oracles can facilitate interoperability between different blockchain networks by providing a standardized interface for data exchange. | 5. **Smart Contract Complexity**: Integrating decentralized oracles may introduce additional complexity to smart contract development, requiring careful design and testing to ensure proper functionality. |
 
 ## Fetching Real-Time Information:
 
